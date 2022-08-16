@@ -14,6 +14,10 @@
 		F3580E0B28AA8CFC006ADBCA /* Weather.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F3580E0928AA8CFC006ADBCA /* Weather.xcdatamodeld */; };
 		F3580E0D28AA8D00006ADBCA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3580E0C28AA8D00006ADBCA /* Assets.xcassets */; };
 		F3580E1028AA8D00006ADBCA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3580E0E28AA8D00006ADBCA /* LaunchScreen.storyboard */; };
+		F3580E1828AABD70006ADBCA /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3580E1728AABD70006ADBCA /* Model.swift */; };
+		F3580E1A28AABDE9006ADBCA /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3580E1928AABDE9006ADBCA /* Request.swift */; };
+		F3580E1C28AAC046006ADBCA /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3580E1B28AAC046006ADBCA /* TableViewController.swift */; };
+		F3580E1E28AACA7B006ADBCA /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3580E1D28AACA7B006ADBCA /* TableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +30,10 @@
 		F3580E0C28AA8D00006ADBCA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F3580E0F28AA8D00006ADBCA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F3580E1128AA8D00006ADBCA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F3580E1728AABD70006ADBCA /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		F3580E1928AABDE9006ADBCA /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		F3580E1B28AAC046006ADBCA /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		F3580E1D28AACA7B006ADBCA /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,8 +69,12 @@
 				F3580E0028AA8CFC006ADBCA /* AppDelegate.swift */,
 				F3580E0228AA8CFC006ADBCA /* SceneDelegate.swift */,
 				F3580E0428AA8CFC006ADBCA /* ViewController.swift */,
-				F3580E0628AA8CFC006ADBCA /* Main.storyboard */,
+				F3580E1B28AAC046006ADBCA /* TableViewController.swift */,
+				F3580E1D28AACA7B006ADBCA /* TableViewCell.swift */,
+				F3580E1728AABD70006ADBCA /* Model.swift */,
+				F3580E1928AABDE9006ADBCA /* Request.swift */,
 				F3580E0C28AA8D00006ADBCA /* Assets.xcassets */,
+				F3580E0628AA8CFC006ADBCA /* Main.storyboard */,
 				F3580E0E28AA8D00006ADBCA /* LaunchScreen.storyboard */,
 				F3580E1128AA8D00006ADBCA /* Info.plist */,
 				F3580E0928AA8CFC006ADBCA /* Weather.xcdatamodeld */,
@@ -141,6 +153,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3580E1828AABD70006ADBCA /* Model.swift in Sources */,
+				F3580E1E28AACA7B006ADBCA /* TableViewCell.swift in Sources */,
+				F3580E1C28AAC046006ADBCA /* TableViewController.swift in Sources */,
+				F3580E1A28AABDE9006ADBCA /* Request.swift in Sources */,
 				F3580E0B28AA8CFC006ADBCA /* Weather.xcdatamodeld in Sources */,
 				F3580E0528AA8CFC006ADBCA /* ViewController.swift in Sources */,
 				F3580E0128AA8CFC006ADBCA /* AppDelegate.swift in Sources */,
@@ -294,6 +310,8 @@
 				DEVELOPMENT_TEAM = 7JHW79QBZS;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Weather/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -322,6 +340,8 @@
 				DEVELOPMENT_TEAM = 7JHW79QBZS;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Weather/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
