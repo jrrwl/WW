@@ -14,18 +14,21 @@ class ViewController: UIViewController {
     @IBOutlet weak var sunriseLabelOutlet: UILabel!
     @IBOutlet weak var sunsetLabelOutlet: UILabel!
     
-    var selectedDate: Forecastday?
+    var selectedDate: TableViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tempLabelOutlet.text = "\(selectedDate?.day?.maxtempC ?? 0)°C "
-        descriptionOutlet.text = selectedDate?.day?.condition?.text ?? ""
-        sunriseLabelOutlet.text = "Sunrise: \(selectedDate?.astro?.sunrise ?? "")"
-        sunsetLabelOutlet.text = "Sunset: \(selectedDate?.astro?.sunset ?? "")"
-        guard let url = URL(string: "https:" + (selectedDate?.day?.condition?.icon)!) else { return }
-        imageOutlet.loadFrom(url: url)
+        update()
     }
     
+    func update() {
+        tempLabelOutlet.text = "\(selectedDate?.maxTempC ?? 0)°C "
+        descriptionOutlet.text = selectedDate?.condition ?? ""
+        sunriseLabelOutlet.text = "Sunrise: \(selectedDate?.sunrise ?? "")"
+        sunsetLabelOutlet.text = "Sunset: \(selectedDate?.sunset ?? "")"
+        guard let url = URL(string: "https:" + (selectedDate?.icon)!) else { return }
+        imageOutlet.loadFrom(url: url)
+    }
     
 }
 
