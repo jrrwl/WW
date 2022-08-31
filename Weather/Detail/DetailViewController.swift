@@ -7,14 +7,14 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class DetailViewController: UIViewController {
     @IBOutlet weak var imageOutlet: UIImageView!
     @IBOutlet weak var tempLabelOutlet: UILabel!
     @IBOutlet weak var descriptionOutlet: UILabel!
     @IBOutlet weak var sunriseLabelOutlet: UILabel!
     @IBOutlet weak var sunsetLabelOutlet: UILabel!
     
-    var selectedDate: TableViewModel?
+    var viewModel: DetailViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,13 +22,19 @@ class ViewController: UIViewController {
     }
     
     func update() {
-        tempLabelOutlet.text = "\(selectedDate?.maxTempC ?? 0)°C "
-        descriptionOutlet.text = selectedDate?.condition ?? ""
-        sunriseLabelOutlet.text = "Sunrise: \(selectedDate?.sunrise ?? "")"
-        sunsetLabelOutlet.text = "Sunset: \(selectedDate?.sunset ?? "")"
-        guard let url = URL(string: "https:" + (selectedDate?.icon)!) else { return }
+        tempLabelOutlet.text = "\(self.viewModel.getSelectedDate().maxTempC)°C"
+        descriptionOutlet.text = self.viewModel.getSelectedDate().condition
+        sunriseLabelOutlet.text = "Sunrise: \(self.viewModel.getSelectedDate().sunrise)"
+        sunsetLabelOutlet.text = "Sunset: \(self.viewModel.getSelectedDate().sunset)"
+        guard let url = URL(string: "https:" + (self.viewModel.getSelectedDate().icon)) else { return }
         imageOutlet.loadFrom(url: url)
     }
+    
+    
+    
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
 }
 

@@ -1,5 +1,5 @@
 //
-//  TableViewController.swift
+//  MainViewController.swift
 //  Weather
 //
 //  Created by Vladimir Illukovich on 15.08.22.
@@ -7,13 +7,13 @@
 
 import UIKit
 
-class TableViewController: UITableViewController {
+class MainViewController: UITableViewController {
     
-    var viewModel = ViewModel()
+    var viewModel = MainViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        request(viewModel: viewModel)
+        viewModel.request()
         viewModel.welcome.bind { [weak self] _ in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
@@ -33,17 +33,23 @@ class TableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
-        cell.dateLabel.text = (viewModel.welcome.value?[indexPath.row].date) ?? ""
-        cell.tempLabel.text = "\(viewModel.welcome.value?[indexPath.row].maxTempC ?? 0)°C"
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! WeatherViewCell
+        guard let cellData = viewModel.welcome.value?[indexPath.row] else { return UITableViewCell.init() }
+                
+        let cellViewModel = WeatherCellViewModel(weaterModel: cellData)
+                                                       
+        cell.viewModel = cellViewModel
+        cell.config()
         return cell
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         guard segue.identifier == "segueOne" else {return}
-        let nC = segue.destination as! ViewController
+        let nC = segue.destination as! DetailViewController
         let indexPath = tableView.indexPathForSelectedRow!
-        nC.selectedDate = viewModel.welcome.value?[indexPath.row]
+        guard let selected = viewModel.welcome.value?[indexPath.row] else { return }
+        let viewModel = DetailViewModel.init(selectedDate: selected)
+        nC.viewModel = viewModel
     }
 }
