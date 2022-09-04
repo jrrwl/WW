@@ -8,33 +8,76 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-    @IBOutlet weak var imageOutlet: UIImageView!
-    @IBOutlet weak var tempLabelOutlet: UILabel!
-    @IBOutlet weak var descriptionOutlet: UILabel!
-    @IBOutlet weak var sunriseLabelOutlet: UILabel!
-    @IBOutlet weak var sunsetLabelOutlet: UILabel!
+    
+    var imageView = UIImageView()
+    var temperatureLabel = UILabel()
+    var descriptionLabel = UILabel()
+    var sunriseLabel = UILabel()
+    var sunsetLabel = UILabel()
+    
     
     var viewModel: DetailViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         update()
+        view.backgroundColor = .systemBackground
+        imageViewSettings()
+        temperatureLabelSettings()
+        descriptionLabelSettings()
+        sunriseLabelSettings()
+        sunsetLabelSettings()
     }
     
     func update() {
-        tempLabelOutlet.text = "\(self.viewModel.getSelectedDate().maxTempC)°C"
-        descriptionOutlet.text = self.viewModel.getSelectedDate().condition
-        sunriseLabelOutlet.text = "Sunrise: \(self.viewModel.getSelectedDate().sunrise)"
-        sunsetLabelOutlet.text = "Sunset: \(self.viewModel.getSelectedDate().sunset)"
+        temperatureLabel.text = " \(self.viewModel.getSelectedDate().maxTempC)°C "
+        descriptionLabel.text = self.viewModel.getSelectedDate().condition
+        sunriseLabel.text = "Sunrise: \(self.viewModel.getSelectedDate().sunrise)"
+        sunsetLabel.text = "Sunset: \(self.viewModel.getSelectedDate().sunset)"
         guard let url = URL(string: "https:" + (self.viewModel.getSelectedDate().icon)) else { return }
-        imageOutlet.loadFrom(url: url)
+        imageView.loadFrom(url: url)
     }
     
+    func imageViewSettings() {
+        view.addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 200).isActive = true
+    }
     
+    func temperatureLabelSettings() {
+        view.addSubview(temperatureLabel)
+        temperatureLabel.translatesAutoresizingMaskIntoConstraints = false
+        temperatureLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        temperatureLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 30).isActive = true
+        temperatureLabel.font = UIFont.italicSystemFont(ofSize: 40)
+        temperatureLabel.textColor = .white
+        temperatureLabel.backgroundColor = .systemPink
+    }
     
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
+    func descriptionLabelSettings() {
+        view.addSubview(descriptionLabel)
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        descriptionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        descriptionLabel.topAnchor.constraint(equalTo: temperatureLabel.bottomAnchor, constant: 30).isActive = true
+        descriptionLabel.font = UIFont.systemFont(ofSize: 30)
+    }
+    
+    func sunriseLabelSettings() {
+        view.addSubview(sunriseLabel)
+        sunriseLabel.translatesAutoresizingMaskIntoConstraints = false
+        sunriseLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        sunriseLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 20).isActive = true
+        sunriseLabel.font = UIFont.systemFont(ofSize: 17, weight: .thin)
+    }
+    
+    func sunsetLabelSettings() {
+        view.addSubview(sunsetLabel)
+        sunsetLabel.translatesAutoresizingMaskIntoConstraints = false
+        sunsetLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        sunsetLabel.topAnchor.constraint(equalTo: sunriseLabel.bottomAnchor, constant: 5).isActive = true
+        sunsetLabel.font = UIFont.systemFont(ofSize: 17, weight: .thin)
+    }
     
 }
 

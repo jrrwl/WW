@@ -15,7 +15,4 @@ class WeatherCellViewModel {
         self.date = weaterModel.date
         self.maxTempC = weaterModel.maxTempC
     }
-//    func getDataFromWeatherModel(index: Int) -> WeatherModel {
-//        return WeatherModel[index]
-//    }
 }

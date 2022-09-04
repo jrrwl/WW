@@ -13,6 +13,8 @@ class MainViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.register(WeatherViewCell.self, forCellReuseIdentifier: "cell")
+        self.title = "Warsaw Weather"
         viewModel.request()
         viewModel.welcome.bind { [weak self] _ in
             DispatchQueue.main.async {
@@ -31,25 +33,22 @@ class MainViewController: UITableViewController {
         return viewModel.welcome.value?.count ?? 0
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! WeatherViewCell
         guard let cellData = viewModel.welcome.value?[indexPath.row] else { return UITableViewCell.init() }
-                
+
         let cellViewModel = WeatherCellViewModel(weaterModel: cellData)
-                                                       
+
         cell.viewModel = cellViewModel
         cell.config()
         return cell
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        super.prepare(for: segue, sender: sender)
-        guard segue.identifier == "segueOne" else {return}
-        let nC = segue.destination as! DetailViewController
-        let indexPath = tableView.indexPathForSelectedRow!
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let nC = DetailViewController()
         guard let selected = viewModel.welcome.value?[indexPath.row] else { return }
         let viewModel = DetailViewModel.init(selectedDate: selected)
         nC.viewModel = viewModel
+        navigationController?.pushViewController(nC, animated: true)
     }
 }
