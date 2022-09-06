@@ -9,11 +9,29 @@ import UIKit
 
 class DetailViewController: UIViewController {
     
-    var imageView = UIImageView()
-    var temperatureLabel = UILabel()
-    var descriptionLabel = UILabel()
-    var sunriseLabel = UILabel()
-    var sunsetLabel = UILabel()
+    private lazy var imageView = UIImageView()
+    private lazy var temperatureLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.italicSystemFont(ofSize: 40)
+        label.textColor = .white
+        label.backgroundColor = .systemPink
+        return label
+    }()
+    private lazy var descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 30)
+        return label
+    }()
+    private lazy var sunriseLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 17, weight: .thin)
+        return label
+    }()
+    private lazy var sunsetLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 17, weight: .thin)
+        return label
+    }()
     
     
     var viewModel: DetailViewModel!
@@ -22,11 +40,8 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         update()
         view.backgroundColor = .systemBackground
-        imageViewSettings()
-        temperatureLabelSettings()
-        descriptionLabelSettings()
-        sunriseLabelSettings()
-        sunsetLabelSettings()
+        addingSubviews()
+        subviewsConstraints()
     }
     
     func update() {
@@ -38,45 +53,50 @@ class DetailViewController: UIViewController {
         imageView.loadFrom(url: url)
     }
     
-    func imageViewSettings() {
+    func addingSubviews() {
         view.addSubview(imageView)
+        view.addSubview(temperatureLabel)
+        view.addSubview(descriptionLabel)
+        view.addSubview(sunriseLabel)
+        view.addSubview(sunsetLabel)
+    }
+    
+    func subviewsConstraints() {
+        imageViewConstraints()
+        temperatureLabelConstraints()
+        descriptionLabelConstraints()
+        sunriseLabelConstraints()
+        sunsetLabelConstraints()
+    }
+    
+    func imageViewConstraints() {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 200).isActive = true
     }
     
-    func temperatureLabelSettings() {
-        view.addSubview(temperatureLabel)
+    func temperatureLabelConstraints() {
         temperatureLabel.translatesAutoresizingMaskIntoConstraints = false
         temperatureLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         temperatureLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 30).isActive = true
-        temperatureLabel.font = UIFont.italicSystemFont(ofSize: 40)
-        temperatureLabel.textColor = .white
-        temperatureLabel.backgroundColor = .systemPink
     }
     
-    func descriptionLabelSettings() {
-        view.addSubview(descriptionLabel)
+    func descriptionLabelConstraints() {
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         descriptionLabel.topAnchor.constraint(equalTo: temperatureLabel.bottomAnchor, constant: 30).isActive = true
-        descriptionLabel.font = UIFont.systemFont(ofSize: 30)
     }
     
-    func sunriseLabelSettings() {
-        view.addSubview(sunriseLabel)
+    func sunriseLabelConstraints() {
         sunriseLabel.translatesAutoresizingMaskIntoConstraints = false
         sunriseLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         sunriseLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 20).isActive = true
-        sunriseLabel.font = UIFont.systemFont(ofSize: 17, weight: .thin)
     }
     
-    func sunsetLabelSettings() {
-        view.addSubview(sunsetLabel)
+    func sunsetLabelConstraints() {
         sunsetLabel.translatesAutoresizingMaskIntoConstraints = false
         sunsetLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         sunsetLabel.topAnchor.constraint(equalTo: sunriseLabel.bottomAnchor, constant: 5).isActive = true
-        sunsetLabel.font = UIFont.systemFont(ofSize: 17, weight: .thin)
     }
     
 }

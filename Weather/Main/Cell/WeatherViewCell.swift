@@ -9,8 +9,15 @@ import UIKit
 
 class WeatherViewCell: UITableViewCell {
     
-    var datelabel = UILabel()
-    var temperatureLabel = UILabel()
+    private lazy var datelabel: UILabel = {
+        let label = UILabel()
+        return label
+    }()
+    
+    private lazy var temperatureLabel: UILabel = {
+       let label = UILabel()
+        return label
+    }()
     
     var viewModel: WeatherCellViewModel?
     
@@ -21,14 +28,22 @@ class WeatherViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        addSubview(datelabel)
-        addSubview(temperatureLabel)
-        setDateLabelConstraints()
-        setTemperatureLabelConstraints()
+        initViews()
+        addSubviewConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func initViews() {
+        self.addSubview(datelabel)
+        self.addSubview(temperatureLabel)
+    }
+    
+    func addSubviewConstraints() {
+        self.setDateLabelConstraints()
+        self.setTemperatureLabelConstraints()
     }
     
     func setDateLabelConstraints() {
@@ -42,6 +57,4 @@ class WeatherViewCell: UITableViewCell {
         temperatureLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         temperatureLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
     }
-    
-    
 }
