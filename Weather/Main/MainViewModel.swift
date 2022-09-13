@@ -6,11 +6,23 @@
 //
 
 import Foundation
+import CoreData
+
 
 public class MainViewModel {
     var welcome: Observable<[WeatherModel]> = Observable([])
     
-    public func request() {
+//    var weatherCoreDataArray: [WeatherCoreData]?
+    
+    
+    public func weatherViewModelFromCoreData(context: NSManagedObjectContext) {
+        let weatherCoreDataArray = WeatherCoreData().getWeatherCoreDataArray(context: context).sorted {$0.dateCD ?? "" < $1.dateCD ?? ""}
+        self.welcome.value = weatherCoreDataArray.compactMap({
+            WeatherModel(date: $0.dateCD ?? "", maxTempC: $0.maxtempCCD, condition: $0.conditionCD ?? "", sunrise: $0.sunriseCD ?? "", sunset: $0.sunsetCD ?? "", icon: $0.iconCD ?? "")
+        })
+    }
+    
+    public func request(context: NSManagedObjectContext) {
         let semaphore = DispatchSemaphore (value: 0)
 
         var request = URLRequest(url: URL(string: "http://api.weatherapi.com/v1/forecast.json?key=9820c39fe1ab4c1499e153616223008&q=warsaw&days=14")!,timeoutInterval: Double.infinity)
@@ -25,7 +37,30 @@ public class MainViewModel {
             self.welcome.value = weatherData.forecast?.forecastday?.compactMap({
                 WeatherModel(date: $0.date ?? "", maxTempC: $0.day?.maxtempC ?? 0.0, condition: $0.day?.condition?.text ?? "", sunrise: $0.astro?.sunrise ?? "", sunset: $0.astro?.sunset ?? "", icon: $0.day?.condition?.icon ?? "")
             })
-          print(String(data: data, encoding: .utf8)!)
+            
+            var weatherCoreDataArray = WeatherCoreData().getWeatherCoreDataArray(context: context)
+            while !weatherCoreDataArray.isEmpty {
+                let w = weatherCoreDataArray[0]
+                context.delete(w)
+                weatherCoreDataArray.remove(at: 0)
+            }
+            for w in self.welcome.value! {
+                let weatherCoreData = WeatherCoreData().createWeatherCoreData(context: context)
+                weatherCoreData.dateCD = w.date
+                weatherCoreData.maxtempCCD = w.maxTempC
+                weatherCoreData.conditionCD = w.condition
+                weatherCoreData.sunriseCD = w.sunrise
+                weatherCoreData.sunsetCD = w.sunset
+                weatherCoreData.iconCD = w.icon
+                weatherCoreDataArray.append(weatherCoreData)
+            }
+            do {
+                try context.save()
+            } catch {
+                //error
+            }
+            
+//          print(String(data: data, encoding: .utf8)!)
           semaphore.signal()
         }
 

@@ -11,8 +11,8 @@ class WeatherCellViewModel {
     var date: String
     var maxTempC: Double
     
-    init(weaterModel: WeatherModel) {
-        self.date = weaterModel.date
-        self.maxTempC = weaterModel.maxTempC
+    init(weatherModel: WeatherModel) {
+        self.date = weatherModel.date
+        self.maxTempC = weatherModel.maxTempC
     }
 }
