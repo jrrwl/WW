@@ -25,7 +25,7 @@ public class MainViewModel {
     public func request(context: NSManagedObjectContext) {
         let semaphore = DispatchSemaphore (value: 0)
 
-        var request = URLRequest(url: URL(string: "http://api.weatherapi.com/v1/forecast.json?key=9820c39fe1ab4c1499e153616223008&q=warsaw&days=14")!,timeoutInterval: Double.infinity)
+        var request = URLRequest(url: URL(string: "http://api.weatherapi.com/v1/forecast.json?key=980a8eabfa2d43fdb1c115219221409&q=warsaw&days=14")!,timeoutInterval: Double.infinity)
         request.httpMethod = "GET"
 
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
